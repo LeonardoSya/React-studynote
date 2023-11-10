@@ -77,5 +77,11 @@ function Profile(props) {
 ```
 2. 要读取props，使用`function fn{{ param1, param2 }}`这样的解构语法
 3. prop可以在作为参数传递时指定默认值
-4. 像`<Card><Avatar /></Card>`这样的嵌套JSX，将被视为Card组件的children 
+4. 像`<Card><Avatar /></Card>`这样的嵌套JSX，将被视为Card组件的children *移步 ./4.App-children-demo.js*
 5. Props 是只读的时间快照：每次渲染都会收到新版本的 props。 你不能改变 props。当你需要交互性时，你可以设置 state。
+
+
+### 条件渲染
+在 JSX 中，{cond ? <A /> : <B />} 表示 “当 cond 为真值时, 渲染 <A />，否则 <B />”。
+
+在 JSX 中，{cond && <A />} 表示 “当 cond 为真值时, 渲染 <A />，否则不进行渲染”。
