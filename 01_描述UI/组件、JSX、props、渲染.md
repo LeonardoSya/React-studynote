@@ -85,3 +85,31 @@ function Profile(props) {
 在 JSX 中，{cond ? <A /> : <B />} 表示 “当 cond 为真值时, 渲染 <A />，否则 <B />”。
 
 在 JSX 中，{cond && <A />} 表示 “当 cond 为真值时, 渲染 <A />，否则不进行渲染”。
+
+
+
+### 保持组件纯粹
+纯函数：不会更改在该函数调用前就已经存在的对象或变量；给定相同的输入则返回相同的结果
+React假设 *你编写的所有组件都是纯函数* ———— 对于相同的输入，React组件必须返回相同的JSX
+组件不应该改变在渲染前就已经存在的任何对象或变量，这会使它们不纯粹
+```js
+function Cup({guest}) {   // 将guest作为prop传入，这样组件就是纯粹的，因为它返回的jsx只依赖于props
+    return <h2>Tea cup for guest #{guest}</h2>;
+}
+
+export default function TeaSet() {
+    return (
+        <>
+            <Cup guest={1}/>
+            <Cup guest={2}/>
+            <Cup guest={3}/>
+        </>
+    );
+}
+```
+突变(mutation): 组件改变了*预先存在的*变量的值
+局部mutation: 在渲染时更改你刚刚创建的变量和对象(变量在组件内被创建)
+事件处理程序一般在*组件内部*定义，它们不会在渲染期间运行，因此事件处理程序无需是纯函数
+仅通过渲染来表达逻辑，好处巨大
+push,pop,reverse,sort会改变原始数组
+slice,filter,map会创建一个新数组
