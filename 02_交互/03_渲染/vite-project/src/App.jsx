@@ -1,35 +1,35 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function Form() {
+  const [isSent,setIsSent] = useState(false);
+  const [message,setMessage]=useState('hi')
 
+  if(isSent) {
+    return <h1>Your message is on its way</h1>
+  }
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <form onSubmit={(e)=> {
+      e.preventDefault();
+      setIsSent(true);
+      setMessage(message);
+    }}>
+      <textarea 
+        placeholder='Message'
+        value={message}
+        onChange={e=>setMessage(e.target.value)}
+      />
+      <button type='submit'>Send</button>
+    </form>
+
+    /**
+     * 当你单击按钮时会发生以下情况：
+
+    执行 onSubmit 事件处理函数。
+    setIsSent(true) 将 isSent 设置为 true 并排列一个新的渲染。
+    React 根据新的 isSent 值重新渲染组件。
+     */
   )
 }
-
-export default App
