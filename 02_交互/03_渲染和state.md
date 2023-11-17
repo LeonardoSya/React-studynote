@@ -105,3 +105,21 @@ updatePerson(draft => {
 // 
 ```
 
+当然，更新state中的数组也需要像对象一样，更新数组使用filter()和map()等生成新数组
+添加元素	push，unshift -->	concat，[...arr] 展开语法（例子）
+删除元素	pop，shift，splice --> qfilter，slice（例子）
+替换元素	splice，arr[i] = ... 赋值 -->	map（例子）
+排序	reverse，sort	--> 先将数组复制一份（例子）
+或者使用immer
+```js
+<button onClick={()=>
+  setArtists(  // 替换state 传入一个新数组
+    [
+    ...artists,  // 新数组包含原数组的所有元素
+    {id:nextId++,name:name}  // 在新数组末尾追加一个新元素，新元素为{}
+  ]
+  )}>Add a li</button>
+```
+
+
+
