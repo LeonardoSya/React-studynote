@@ -66,9 +66,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
-li {
-  list-style: none;
-  float: left;
-  padding: 10px;
-}
