@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Card, Flex, Button, Typography } from 'antd';
 
-export function MyCard() {
-    
+const MyCard = () => {
+
     const cardStyle = {
         width: 620,
         background: "#d9d4d4",
@@ -50,3 +50,5 @@ export function MyCard() {
         </>
     )
 }
+
+export default MyCard;
