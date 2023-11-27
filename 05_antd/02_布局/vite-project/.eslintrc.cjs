@@ -1,3 +1,4 @@
+
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
@@ -17,4 +18,12 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  "overrides": [
+    {
+      files: ["**/*.jsx"],
+      rules: {
+        "react/prop-types": "off"
+      }
+    }
+  ]
 }

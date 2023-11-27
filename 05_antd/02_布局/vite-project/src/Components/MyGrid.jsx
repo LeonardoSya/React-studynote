@@ -3,7 +3,7 @@ import { Col, Row } from 'antd';
 import '../App.css';
 import { MyCard } from './MyCard';
 
-export function MyGrid() {
+const MyGrid = () => {
 
     return (
         <>
@@ -23,3 +23,4 @@ export function MyGrid() {
     )
 }
 
+export default MyGrid;
