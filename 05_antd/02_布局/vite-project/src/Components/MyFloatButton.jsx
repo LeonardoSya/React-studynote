@@ -1,5 +1,5 @@
 import React from 'react';
-import { ZoomInOutlined, ZoomOutOutlined ,SyncOutlined } from '@ant-design/icons';
+import { ZoomInOutlined, ZoomOutOutlined, SyncOutlined } from '@ant-design/icons';
 import { FloatButton } from 'antd';
 
 const MyFloatButton = () => {
@@ -12,7 +12,7 @@ const MyFloatButton = () => {
                 <FloatButton icon={< ZoomInOutlined />} />
                 <FloatButton icon={< ZoomOutOutlined />} />
                 <FloatButton />
-                <FloatButton icon={<SyncOutlined />} />
+                <FloatButton icon={<SyncOutlined />} onClick={() => window.location.reload()} />
                 <FloatButton.BackTop visibilityHeight={70} />
             </FloatButton.Group>
         </>
