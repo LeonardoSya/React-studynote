@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import MyFloatButton from './Components/MyFloatButton';
 import MyLayout from './Components/MyLayout';
-import './App.css'
-import './index.css'
+import './style/App.css'
+import './style/index.css'
 
 
 const App = () => {
