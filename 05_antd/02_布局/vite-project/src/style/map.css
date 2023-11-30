@@ -1,4 +1,5 @@
 .map-container-page1 {
-    width:68vw;
+    width:100.3%;
     height:100vh;
+    overflow: hidden;
 }

@@ -7,7 +7,7 @@ import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import XYZ from 'ol/source/XYZ'
-// import '../../style/map.css';
+import '../../style/map.css';
 
 const { Content } = Layout;
 
@@ -52,25 +52,23 @@ const Page1 = (props) => {
     }, [])
 
     // 如果 features 属性发生变化，则更新地图 - 之前放置在 componentDidUpdate 中的逻辑
-    useEffect(() => {
-        if (props.features.length) {  // 可能在首次渲染时为空
-            // 在地图中设置要素
-            featuresLayer.setSource(
-                new VectorSource({
-                    features: props.features  // 验证要素是 array
-                })
-            )
-            // 适合地图的要素范围
-            // map.geiView().fit(featuresLayer.getSource().getExtent(), {
-            //     padding: [100, 100, 100, 100]
-            // })
-        }
-    }, [props, featuresLayer, map])
+    // useEffect(() => {
+    //     if (props.features.length) {  // 可能在首次渲染时为空
+    //         // 在地图中设置要素
+    //         featuresLayer.setSource(
+    //             new VectorSource({
+    //                 features: props.features  // 验证要素是 array
+    //             })
+    //         )
+    //         // 适合地图的要素范围
+    //         // map.geiView().fit(featuresLayer.getSource().getExtent(), {
+    //         //     padding: [100, 100, 100, 100]
+    //         // })
+    //     }
+    // }, [props, featuresLayer, map])
 
     return (
-        <Content style={{ padding: 24, minHeight: '80vh', background: '#f0f0f0', }}>
             <div ref={mapElement} className='map-container-page1' />
-        </Content>
     );
 }
 
