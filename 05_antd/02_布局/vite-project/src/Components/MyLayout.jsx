@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Route, Link, Router, Routes, NavLink, Navigate } from 'react-router-dom';
-import { Col, Row, ColorPicker, Divider, ConfigProvider, App, Space, Select, Flex, Button, Layout, Menu, theme, Typography, Dropdown, Tooltip, Switch } from 'antd';
-import { MenuFoldOutlined, MenuUnfoldOutlined, DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, GithubOutlined, WechatFilled } from '@ant-design/icons';
+import { FloatButton, Col, Row, ColorPicker, Divider, ConfigProvider, App, Space, Select, Flex, Button, Layout, Menu, theme, Typography, Dropdown, Tooltip, Switch } from 'antd';
+import { ZoomInOutlined, ZoomOutOutlined, SyncOutlined, MenuFoldOutlined, MenuUnfoldOutlined, DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, GithubOutlined, WechatFilled, CodeFilled, FileFilled } from '@ant-design/icons';
 import HomePage from './Routers/HomePage';
 import Page1 from './Routers/Page1';
 import Page2 from './Routers/Page2';
@@ -10,10 +10,11 @@ import Page4 from './Routers/Page4';
 import Page5 from './Routers/Page5';
 
 const { Header, Content, Footer, Sider } = Layout;
-const { Title, Paragraph } = Typography;
+const { Title } = Typography;
 
 
 const MyLayout = () => {
+    const [mapZoom, setMapZoom] = useState(2);
     const [collapsed, setCollapsed] = React.useState(true);
     const [primary, setPrimary] = React.useState('#13c2c2')
     // const { token: { colorBgContainer }, } = theme.useToken();
@@ -32,7 +33,16 @@ const MyLayout = () => {
         }
     }
 
-    
+    const handleZoomIn = () => {
+        setMapZoom(mapZoom + 1);
+    }
+
+    const handleZoomOut = () => {
+        setMapZoom(mapZoom - 1);
+    }
+
+
+
     return (
         <ConfigProvider
             theme={{
@@ -44,6 +54,8 @@ const MyLayout = () => {
                 }
             }}
         >
+            <MyFloatButton zoom={mapZoom} ouZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
+
             <Layout style={{ minHeight: '100vh', }}>
                 {/* Sider */}
                 <MySider collapsed={collapsed} />
@@ -56,7 +68,7 @@ const MyLayout = () => {
                     <MySearchModule collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
 
                     {/* Router */}
-                    <MyMap  style={{width:'100vw'}}/>
+                    <MyMap style={{ width: '100vw' }} zoom={mapZoom} onZoomChange={setMapZoom} />
                     {/* Footer */}
                     <Footer style={{ textAlign: 'center', background: '#f0f0f0' }}>
                         Ecolens System ©2023 Created by Zhangyiyang
@@ -108,19 +120,26 @@ const MySider = ({ collapsed }) => {
 const MyHeader = ({ primary, togglePrimaryColor }) => (
     <Header style={{ width: '100%', height: '5.5vh', padding: 0, background: '#fafafa', }}>
         <Row>
-            <Col span={8}>
+            <Col span={6}>
                 <Flex justify="flex-start" align="flex-start" gap="small">
                     <ColorPicker value={primary} onChangeComplete={togglePrimaryColor} style={{ margin: '1vh', border: 'none' }} />
                     <Title style={{ fontSize: 20, fontWeight: 700 }}>Ecolens</Title>
                 </Flex>
             </Col>
-            <Col span={8} offset={8}>
-                <Flex justify="flex-end" align='center' style={{ margin: '5px 10px' }}>
+            <Col span={6} offset={12}>
+                <Flex justify="flex-end" align='center' style={{ margin: '5px 10px', overflow: 'hidden' }}>
+
                     <Tooltip placement='bottom' title={<span>Contact us!</span>}>
                         <Button size="large" style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<WechatFilled />} />
                     </Tooltip>
                     <Tooltip placement='bottom' title={<span>Github</span>}>
                         <Button href='https://github.com/LeonardoSya/React-studynote' target='_blank' size="large" style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<GithubOutlined />} />
+                    </Tooltip>
+                    <Tooltip placement='bottom' title={<span>Docs</span>}>
+                        <Button href='#' target='_blank' size='large' style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<FileFilled />} />
+                    </Tooltip>
+                    <Tooltip placement='bottomRight' title={<span>Developer Log</span>}>
+                        <Button href='https://github.com/LeonardoSya/React-studynote' target='_blank' size='large' style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<CodeFilled />} />
                     </Tooltip>
                 </Flex>
             </Col>
@@ -179,14 +198,29 @@ const MySearchModule = ({ collapsed, toggleCollapsed }) => (
     </Flex>
 );
 
-const MyMap = () => (
+const MyFloatButton = ({ onZoomIn, onZoomOut }) => {
+    return (
+        <FloatButton.Group
+            shape='circle'
+            style={{ right: 24 }}
+        >
+            <FloatButton onClick={onZoomIn} icon={< ZoomInOutlined />} />
+            <FloatButton onClick={onZoomOut} icon={< ZoomOutOutlined />} />
+            <FloatButton />
+            <FloatButton icon={<SyncOutlined />} onClick={() => window.location.reload()} />
+            <FloatButton.BackTop visibilityHeight={70} />
+        </FloatButton.Group>
+    );
+}
+
+const MyMap = ({ zoom, onZoomChange }) => (
     <>
         <Content>
             {/* Route用于将应用的位置映射到不同的React组件 */}
             {/* Route 接受 path(页面URL应导航到的路径，类似NavLink的to), element(页面导航到该路由时加载的元素) */}
             <Routes>
                 <Route path='/' element={<HomePage />} />
-                <Route path='page1' element={<Page1 />} />
+                <Route path='page1' element={<Page1 zoom={zoom} onZoomChange={onZoomChange} />} />
                 <Route path='page2' element={<Page2 />} />
                 <Route path='page3' element={<Page3 />} />
                 <Route path='page4' element={<Page4 />} />
