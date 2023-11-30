@@ -1,12 +1,26 @@
-import { Layout, Typography } from 'antd';
-const { Content } = Layout;
-const { Title } = Typography;
+import { Carousel } from 'antd';
+const contentStyle = {
+    color: '#fff',
+    textAlign: 'center',
+    background: '#364d79',
+}
 
 const HomePage = () => {
     return (
-        <Content style={{ padding: 24, minHeight: '80vh', background: '#f0f0f0', }}>
-            <Title level={2}>This page is HomePage :)</Title>
-        </Content>
+        <Carousel autoplay>
+            <div>
+                <h3 style={contentStyle}>1</h3>
+            </div>
+            <div>
+                <h3 style={contentStyle}>2</h3>
+            </div>
+            <div>
+                <h3 style={contentStyle}>3</h3>
+            </div>
+            <div>
+                <h3 style={contentStyle}>4</h3>
+            </div>
+        </Carousel>
     );
 }
 
