@@ -26,6 +26,13 @@ const MyLayout = () => {
         setPrimary(color.toHexString())
     }
 
+    function forceCollapsed() {
+        if (collapsed === false) {
+            setCollapsed(true);
+        }
+    }
+
+    
     return (
         <ConfigProvider
             theme={{
@@ -41,7 +48,7 @@ const MyLayout = () => {
                 {/* Sider */}
                 <MySider collapsed={collapsed} />
 
-                <Layout>
+                <Layout onClick={forceCollapsed}>
                     {/* Header */}
                     <MyHeader collapsed={collapsed} togglePrimaryColor={togglePrimaryColor} />
 
@@ -49,9 +56,9 @@ const MyLayout = () => {
                     <MySearchModule collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
 
                     {/* Router */}
-                    <MyMap />
+                    <MyMap  style={{width:'100vw'}}/>
                     {/* Footer */}
-                    <Footer style={{ textAlign: 'center', background: '#d9d9d9' }}>
+                    <Footer style={{ textAlign: 'center', background: '#f0f0f0' }}>
                         Ecolens System ©2023 Created by Zhangyiyang
                     </Footer>
                 </Layout>
