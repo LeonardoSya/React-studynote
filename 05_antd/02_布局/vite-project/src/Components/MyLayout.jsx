@@ -14,7 +14,7 @@ const { Title } = Typography;
 
 
 const MyLayout = () => {
-    const [mapZoom, setMapZoom] = useState(2);
+    const [mapZoom, setMapZoom] = useState(3);
     const [collapsed, setCollapsed] = React.useState(true);
     const [primary, setPrimary] = React.useState('#13c2c2')
     // const { token: { colorBgContainer }, } = theme.useToken();
