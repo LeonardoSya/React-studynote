@@ -17,7 +17,7 @@ const Page2 = () => {
             source: new TileWMS({
                 url: geoServerUrl,
                 params: {
-                    'LAYERS': 'workspace:layer_name',   // LAYERS: '工作空间名称:图层名称'  
+                    'LAYERS': 'sorano:layer_name',   // LAYERS: '工作空间名称:图层名称'  
                     'TILED': true,   // TILED: 是否使用瓦片(tiled)模式获取地图
                     'VERSION':'1.1.1',  // wms版本
                     'FORMAT':'image/jpeg'
