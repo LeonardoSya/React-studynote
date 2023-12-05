@@ -8,7 +8,7 @@ const blockContent = `Ecolens 是蚂蚁集团全新一代数据可视化解决�
 
 const HomePageIntroduction = () => {
 
-    
+
     return (
 
         <Typography className='beLeft' >

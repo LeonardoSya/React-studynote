@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Link, Router, Routes, NavLink, Navigate } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Router, Routes, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { FloatButton, Col, Row, ColorPicker, Divider, ConfigProvider, App, Space, Select, Flex, Button, Layout, Menu, theme, Typography, Dropdown, Tooltip, Switch } from 'antd';
-import { ZoomInOutlined, ZoomOutOutlined, SyncOutlined, MenuFoldOutlined, MenuUnfoldOutlined, DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, GithubOutlined, WechatFilled, CodeFilled, FileFilled } from '@ant-design/icons';
+import { AreaChartOutlined, BarChartOutlined, DotChartOutlined, LineChartOutlined, RadarChartOutlined, SlidersOutlined, FundOutlined, ZoomInOutlined, ZoomOutOutlined, SyncOutlined, MenuFoldOutlined, MenuUnfoldOutlined, DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, GithubOutlined, WechatFilled, CodeFilled, FileFilled } from '@ant-design/icons';
+
 import HomePage from './Routers/HomePage';
 import Page1 from './Routers/Page1';
 import Page2 from './Routers/Page2';
@@ -16,7 +17,7 @@ const { Title } = Typography;
 const MyLayout = () => {
     const [mapZoom, setMapZoom] = useState(3);
     const [collapsed, setCollapsed] = React.useState(true);
-    const [primary, setPrimary] = React.useState('#13c2c2')
+    const [primary, setPrimary] = React.useState('#1677ff')
     // const { token: { colorBgContainer }, } = theme.useToken();
 
     const toggleCollapsed = () => {
@@ -87,13 +88,13 @@ function getItem(label, key, icon, path) {
 }
 
 const items = [
-    getItem('HomePage', '1', <PieChartOutlined />, ""),
-    getItem('Page 1', '2', <DesktopOutlined />, "page1"),
-    getItem('Page 2', '3', <UserOutlined />, "page2"),
-    getItem('Page 3', '4', <TeamOutlined />, "page3"),
-    getItem('Page 4', '5', <FileOutlined />, "page4"),
-    getItem('Page 5', '6', <FileOutlined />, "page5"),
-    getItem('Page 6', '7', <FileOutlined />, "page6"),
+    getItem('HomePage', '1', <PieChartOutlined style={{ fontSize: 18 }} />, ""),
+    getItem('Page 1', '2', <AreaChartOutlined style={{ fontSize: 20 }} />, "page1"),
+    getItem('Page 2', '3', <BarChartOutlined style={{ fontSize: 20 }} />, "page2"),
+    getItem('Page 3', '4', <DotChartOutlined style={{ fontSize: 20 }} />, "page3"),
+    getItem('Page 4', '5', <LineChartOutlined style={{ fontSize: 20 }} />, "page4"),
+    getItem('Page 5', '6', <RadarChartOutlined style={{ fontSize: 20 }} />, "page5"),
+    getItem('Page 6', '7', <SlidersOutlined style={{ fontSize: 20 }} />, "page6"),
 
 ];
 
@@ -151,54 +152,83 @@ const selectOptions = [
     {
         value: '1',
         label: 'HomePage',
+        path: "/",
+        page: 'HomePage',
     },
     {
         value: '2',
         label: 'Page 1',
+        path: '/page1',
+        page: 'Page1',
     },
     {
         value: '3',
         label: 'Page 2',
+        path: '/page2',
+        page: 'Page2',
     },
     {
         value: '4',
         label: 'Page 3',
+        path: '/page3',
+        page: 'Page3',
     },
     {
         value: '5',
         label: 'Page 4',
+        path: '/page4',
+        page: 'Page4',
     },
     {
         value: '6',
         label: 'Page 5',
+        path: '/page5',
+        page: 'Page5',
     },
 ]
-const MySearchModule = ({ collapsed, toggleCollapsed }) => (
-    <Flex justify='flex-start' align='center' gap="large" style={{ background: '#f5f5f5' }}>
-        <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={toggleCollapsed}
-            style={{ fontSize: '16px', width: 64, height: 64, }}
-        />
-        <Select
-            showSearch
-            style={{
-                width: 200,
-            }}
-            placeholder="Search to Select"
-            optionFilterProp="children"
-            filterOption={(input, option) => (option?.label ?? '').includes(input)}
-            filterSort={(optionA, optionB) =>
-                (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
-            }
-            options={selectOptions}
-        // ?? 研究一下选择器 API 的 Select props : https://ant-design.antgroup.com/components/select-cn#select-props
-        />
-    </Flex>
-);
 
-const MyFloatButton = ({ onZoomIn, onZoomOut }) => {
+const MySearchModule = ({ collapsed, toggleCollapsed }) => {
+    const navigate = useNavigate();
+
+    const handleSelectChange = (value, option) => {
+        console.log('yes');
+        
+        navigate(option.link);
+    }
+
+    return (
+        <Flex justify='flex-start' align='center' gap="large" style={{ background: '#f5f5f5' }}>
+            <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={toggleCollapsed}
+                style={{ fontSize: '16px', width: 64, height: 64, }}
+            />
+
+            <Select
+                showSearch
+                style={{
+                    width: 200,
+                }}
+                placeholder="Search to Select"
+                defaultActiveFirstOption
+                optionFilterProp="children"
+                filterOption={(input, option) => (option?.label ?? '').includes(input)}
+                filterSort={(optionA, optionB) =>
+                    (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
+                }
+                options={selectOptions.map((option) => ({
+                    key: option.value,
+                    label: option.label,
+                    link: option.path,
+                }))}
+                onSelect={handleSelectChange}  // ?? 切换路由失败了，再研究一下
+            />
+        </Flex>
+    );
+};
+
+const MyFloatButton = ({ onZoomIn, onZoomOut }) => {  // ?? 通过 Button setZoom 失败了，再研究一下
     return (
         <FloatButton.Group
             shape='circle'
@@ -216,7 +246,7 @@ const MyFloatButton = ({ onZoomIn, onZoomOut }) => {
 const MyMap = ({ zoom, onZoomChange }) => (
     <>
         <Content>
-        
+
             {/* Route用于将应用的位置映射到不同的React组件 */}
             {/* Route 接受 path(页面URL应导航到的路径，类似NavLink的to), element(页面导航到该路由时加载的元素) */}
             <Routes>
