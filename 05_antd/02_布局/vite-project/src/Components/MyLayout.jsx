@@ -133,7 +133,7 @@ const MyHeader = ({ primary, togglePrimaryColor }) => (
                     <Tooltip placement='bottom' title={<span>Contact us!</span>}>
                         <Button size="large" style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<WechatFilled />} />
                     </Tooltip>
-                    <Tooltip placement='bottom' title={<span>Github</span>}>
+                    <Tooltip placement='bottom' title={<span>GitHub</span>}>
                         <Button href='https://github.com/LeonardoSya/React-studynote' target='_blank' size="large" style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<GithubOutlined />} />
                     </Tooltip>
                     <Tooltip placement='bottom' title={<span>Docs</span>}>
