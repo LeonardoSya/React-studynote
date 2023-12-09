@@ -1,16 +1,21 @@
 import React, { useState } from 'react';
-import MyLayout from './Components/MyLayout';
+import { BrowserRouter, Route, Link, Router, Routes, NavLink, Navigate, useNavigate } from 'react-router-dom';
+
 // import Galaxy from './Components/Galaxy';
+import MyHomePage from './Components/MyHomePage';
+import Services from './Components/Services';
 import './style/App.css'
 import './style/index.css'
-import MyHomePage from './Components/MyHomePage';
 
 
 const App = () => {
   return (
     <>
-      {/* <MyLayout /> */}
-      <MyHomePage />
+      <Routes>
+        <Route path='/' element={<MyHomePage />} />
+        <Route path='/services/*' element={<Services />} />
+        {/* <Route path='*' element={<MyHomePage />} /> */}
+      </Routes>
     </>
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Route, Link, Router, Routes, NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { Route, Link, Routes, NavLink, Navigate, useNavigate } from 'react-router-dom';
 import { FloatButton, Col, Row, ColorPicker, Divider, ConfigProvider, App, Space, Select, Flex, Button, Layout, Menu, theme, Typography, Dropdown, Tooltip, Switch } from 'antd';
 import { AreaChartOutlined, BarChartOutlined, DotChartOutlined, LineChartOutlined, RadarChartOutlined, SlidersOutlined, FundOutlined, ZoomInOutlined, ZoomOutOutlined, SyncOutlined, MenuFoldOutlined, MenuUnfoldOutlined, DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, GithubOutlined, WechatFilled, CodeFilled, FileFilled } from '@ant-design/icons';
 
@@ -14,10 +14,10 @@ const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 
 
-const MyLayout = () => {
+const Services = () => {
     const [mapZoom, setMapZoom] = useState(3);
     const [collapsed, setCollapsed] = React.useState(true);
-    const [primary, setPrimary] = React.useState('#1677ff')
+    const [primary, setPrimary] = React.useState('#262626')
     // const { token: { colorBgContainer }, } = theme.useToken();
 
     const toggleCollapsed = () => {
@@ -57,7 +57,7 @@ const MyLayout = () => {
         >
             <MyFloatButton zoom={mapZoom} ouZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
 
-            <Layout style={{ minHeight: '100vh', }}>
+            <Layout style={{ minHeight: '100vh', width: '100.3%' }}>
                 {/* Sider */}
                 <MySider collapsed={collapsed} />
 
@@ -71,7 +71,7 @@ const MyLayout = () => {
                     {/* Router */}
                     <MyMap style={{ width: '100vw' }} zoom={mapZoom} onZoomChange={setMapZoom} />
                     {/* Footer */}
-                    <Footer style={{ textAlign: 'center', background: '#f0f0f0' }}>
+                    <Footer style={{ textAlign: 'center', background: 'rgba(0,0,0,.8)', color: '#bfbfbf' }}>
                         Ecolens System ©2023 Created by Zhangyiyang
                     </Footer>
                 </Layout>
@@ -88,13 +88,13 @@ function getItem(label, key, icon, path) {
 }
 
 const items = [
-    getItem('HomePage', '1', <PieChartOutlined style={{ fontSize: 18 }} />, ""),
-    getItem('Page 1', '2', <AreaChartOutlined style={{ fontSize: 20 }} />, "page1"),
-    getItem('Page 2', '3', <BarChartOutlined style={{ fontSize: 20 }} />, "page2"),
-    getItem('Page 3', '4', <DotChartOutlined style={{ fontSize: 20 }} />, "page3"),
-    getItem('Page 4', '5', <LineChartOutlined style={{ fontSize: 20 }} />, "page4"),
-    getItem('Page 5', '6', <RadarChartOutlined style={{ fontSize: 20 }} />, "page5"),
-    getItem('Page 6', '7', <SlidersOutlined style={{ fontSize: 20 }} />, "page6"),
+    getItem('Homepage', '1', <PieChartOutlined style={{ fontSize: 18 }} />, "/services/homepage"),
+    getItem('Page 1', '2', <AreaChartOutlined style={{ fontSize: 20 }} />, "/services/page1"),
+    getItem('Page 2', '3', <BarChartOutlined style={{ fontSize: 20 }} />, "/services/page2"),
+    getItem('Page 3', '4', <DotChartOutlined style={{ fontSize: 20 }} />, "/services/page3"),
+    getItem('Page 4', '5', <LineChartOutlined style={{ fontSize: 20 }} />, "/services/page4"),
+    getItem('Page 5', '6', <RadarChartOutlined style={{ fontSize: 20 }} />, "/services/page5"),
+    getItem('Page 6', '7', <SlidersOutlined style={{ fontSize: 20 }} />, "/services/page6"),
 
 ];
 
@@ -108,9 +108,9 @@ const MySider = ({ collapsed }) => {
     };
 
     return (
-        <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Sider trigger={null} collapsible collapsed={collapsed} style={{ background: "#2d5676" }}>
             <div className='demo-log-vertical' />
-            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" >
+            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" style={{ backgroundImage: " linear-gradient(-20deg, #2b5876 0%, #4e4376 60%)" }} >
                 {renderMenuItems(items)}
             </Menu>
         </Sider>
@@ -119,28 +119,28 @@ const MySider = ({ collapsed }) => {
 
 
 const MyHeader = ({ primary, togglePrimaryColor }) => (
-    <Header style={{ width: '100%', height: '5.5vh', padding: 0, background: '#fafafa', }}>
+    <Header style={{ width: '100%', height: '6vh', padding: 0, backgroundImage: " linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)", }}>
         <Row>
-            <Col span={6}>
+            <Col span={12}>
                 <Flex justify="flex-start" align="flex-start" gap="small">
-                    <ColorPicker value={primary} onChangeComplete={togglePrimaryColor} style={{ margin: '1vh', border: 'none' }} />
-                    <Title style={{ fontSize: 20, fontWeight: 700 }}>Ecolens</Title>
+                    <ColorPicker value={primary} onChangeComplete={togglePrimaryColor} style={{ margin: '1vh', border: 'none', background: "inherit", }} />
+                    <Title style={{ fontSize: "1.5vw", fontFamily: "Silkscreen", marginTop: '1vh', color: '#fff' }}>Ecolens System</Title>
                 </Flex>
             </Col>
-            <Col span={6} offset={12}>
-                <Flex justify="flex-end" align='center' style={{ margin: '5px 10px', overflow: 'hidden' }}>
+            <Col span={6} offset={6}>
+                <Flex justify="flex-end" align='center' style={{ margin: '1vh 1vw', overflow: 'hidden', }}>
 
                     <Tooltip placement='bottom' title={<span>Contact us!</span>}>
-                        <Button size="large" style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<WechatFilled />} />
+                        <Button size="large" style={{ boxShadow: 'none', border: 'none', background: 'inherit', marginTop: '0vh' }} icon={<WechatFilled />} />
                     </Tooltip>
                     <Tooltip placement='bottom' title={<span>GitHub</span>}>
-                        <Button href='https://github.com/LeonardoSya/React-studynote' target='_blank' size="large" style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<GithubOutlined />} />
+                        <Button href='https://github.com/LeonardoSya/React-studynote' target='_blank' size="large" style={{ boxShadow: 'none', border: 'none', background: 'inherit' }} icon={<GithubOutlined />} />
                     </Tooltip>
                     <Tooltip placement='bottom' title={<span>Docs</span>}>
-                        <Button href='#' target='_blank' size='large' style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<FileFilled />} />
+                        <Button href='#' target='_blank' size='large' style={{ boxShadow: 'none', border: 'none', background: 'inherit' }} icon={<FileFilled />} />
                     </Tooltip>
                     <Tooltip placement='bottomRight' title={<span>Developer Log</span>}>
-                        <Button href='https://github.com/LeonardoSya/React-studynote' target='_blank' size='large' style={{ boxShadow: 'none', border: 'none', background: '#fafafa' }} icon={<CodeFilled />} />
+                        <Button href='https://github.com/LeonardoSya/React-studynote' target='_blank' size='large' style={{ boxShadow: 'none', border: 'none', background: 'inherit' }} icon={<CodeFilled />} />
                     </Tooltip>
                 </Flex>
             </Col>
@@ -151,9 +151,9 @@ const MyHeader = ({ primary, togglePrimaryColor }) => (
 const selectOptions = [
     {
         value: '1',
-        label: 'HomePage',
+        label: 'Services',
         path: "/",
-        page: 'HomePage',
+        page: 'Services',
     },
     {
         value: '2',
@@ -192,17 +192,17 @@ const MySearchModule = ({ collapsed, toggleCollapsed }) => {
 
     const handleSelectChange = (value, option) => {
         console.log('yes');
-        
+
         navigate(option.link);
     }
 
     return (
-        <Flex justify='flex-start' align='center' gap="large" style={{ background: '#f5f5f5' }}>
+        <Flex justify='flex-start' align='center' gap="large" style={{ background: '#f5f5f5', height: '10vh' }}>
             <Button
                 type="text"
                 icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 onClick={toggleCollapsed}
-                style={{ fontSize: '16px', width: 64, height: 64, }}
+                style={{ fontSize: '16px', width: 64, height: 64, marginTop: '0' }}
             />
 
             <Select
@@ -250,16 +250,16 @@ const MyMap = ({ zoom, onZoomChange }) => (
             {/* Route用于将应用的位置映射到不同的React组件 */}
             {/* Route 接受 path(页面URL应导航到的路径，类似NavLink的to), element(页面导航到该路由时加载的元素) */}
             <Routes>
-                <Route path='/' element={<HomePage />} />
-                <Route path='page1' element={<Page1 zoom={zoom} onZoomChange={onZoomChange} />} />
-                <Route path='page2' element={<Page2 />} />
-                <Route path='page3' element={<Page3 />} />
-                <Route path='page4' element={<Page4 />} />
-                <Route path='page5' element={<Page5 />} />
-                <Route path='*' element={<Navigate to="/" />} />
+                <Route path='/homepage' element={<HomePage />} />
+                <Route path='/page1' element={<Page1 zoom={zoom} onZoomChange={onZoomChange} />} />
+                <Route path='/page2' element={<Page2 />} />
+                <Route path='/page3' element={<Page3 />} />
+                <Route path='/page4' element={<Page4 />} />
+                <Route path='/page5' element={<Page5 />} />
+                <Route path='*' element={<Navigate to="/services/homepage" />} />
             </Routes>
         </Content>
     </>
 );
 
-export default MyLayout;
+export default Services;
