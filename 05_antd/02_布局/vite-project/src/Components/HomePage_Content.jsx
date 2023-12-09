@@ -1,13 +1,18 @@
+import { Link } from 'react-router-dom';
 import { Card, Col, Layout, Row, Flex, Typography, Image, Divider } from 'antd';
 import { InstagramFilled } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
-import '../style/HomePage.css'
+
+import homepageIcon from '../assets/homepage_icon.svg';
 import reactLogo from '../assets/react.svg'
 import viteLogo from '../assets/vite.svg';
 import antdLogo from '../assets/antd.svg';
 import babelLogo from '../assets/babel.svg';
 import jsLogo from '../assets/js.svg';
 import GEELogo from '../assets/gee.svg';
+
+import '../style/HomePage.css'
+
 
 const { Title, Text } = Typography;
 
@@ -52,17 +57,21 @@ const HomePage_Content = () => {
                                 🚀 Kickstart Ecological Journey <br />
                                 {/* 🚀 Kickstart Your Ecological Journey <br /> */}
                             </Title>
-                            <button className="learn-more">
-                                <span className="circle" aria-hidden="true">
-                                    <span className="icon arrow"></span>
-                                </span>
-                                <span className="button-text">Start NOW !</span>
-                            </button>
+
+                            <Link to="/services/homepage">
+                                <button className="learn-more">
+                                    <span className="circle" aria-hidden="true">
+                                        <span className="icon arrow"></span>
+                                    </span>
+                                    <span className="button-text">Start NOW !</span>
+                                </button>
+                            </Link>
+
                         </Flex>
                     </Card>
 
                     <img
-                        src='https://mambaui.com/assets/svg/Business_SVG.svg'
+                        src={homepageIcon}
                         placeholder='blur'
                         width="450vw"
                         height="450vw"
