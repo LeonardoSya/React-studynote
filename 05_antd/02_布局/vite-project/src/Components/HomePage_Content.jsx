@@ -8,7 +8,7 @@ import reactLogo from '../assets/react.svg'
 import viteLogo from '../assets/vite.svg';
 import antdLogo from '../assets/antd.svg';
 import babelLogo from '../assets/babel.svg';
-import jsLogo from '../assets/js.svg';
+import tsLogo from '../assets/ts.svg';
 import GEELogo from '../assets/gee.svg';
 
 import '../style/HomePage.css'
@@ -23,7 +23,7 @@ const HomePage_Content = () => {
             <Content
                 style={{
                     backgroundImage: " linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)",
-                    padding: "4vh 10vw"
+                    padding: "5vh 10vw"
                 }}
             >
                 <Flex
@@ -49,7 +49,7 @@ const HomePage_Content = () => {
                                 <br />
                                 <span style={{ color: "#a78bfa", fontFamily: "Shadows Into Light", fontSize: "4.5vw" }}> Ecolens</span>
                             </Title>
-                            <Title level={4} style={{ color: "#fff" }}>
+                            <Title level={4} style={{ color: "#fff", fontSize: '1.15vw', fontFamily: 'Poppins' }}>
                                 🌍 Comprehensive Mapping <br />
                                 📡 Remote Sensing Integration <br />
                                 🌱 Ecosystem Monitoring <br />
@@ -72,9 +72,10 @@ const HomePage_Content = () => {
 
                     <img
                         src={homepageIcon}
+                        className='homepage-icon'
                         placeholder='blur'
-                        width="450vw"
-                        height="450vw"
+                    // width="450vw"
+                    // height="450vw"
                     />
 
                 </Flex>
@@ -93,25 +94,39 @@ const HomePage_Content = () => {
                 <Row justify="space-around">
                     <Col span={3}></Col>
                     <Col span={1}>
-                        <img src={reactLogo} className="logo" alt="React logo" />
+                        <Link to="https://react.docschina.org/" target='_blank'>
+                            <img src={reactLogo} className="logo" alt="React logo" />
+                        </Link>
                     </Col>
                     <Col span={1}>
-                        <img src={viteLogo} className="logo" alt="Vite logo" />
+                        <Link to="https://vitejs.dev/" target='_blank'>
+                            <img src={viteLogo} className="logo" alt="Vite logo" />
+                        </Link>
                     </Col>
                     <Col span={1}>
-                        <img src={antdLogo} className="logo" alt="Antd logo" />
+                        <Link to="https://ant.design/index-cn/" target='_blank'>
+                            <img src={antdLogo} className="logo" alt="Antd logo" />
+                        </Link>
                     </Col>
                     <Col span={1}>
-                        <img src="https://openlayers.org/theme/img/logo-dark.svg" className="logo" alt="openlayers logo" style={{ width: 32 }} />
+                        <Link to="https://openlayers.org/" target='_blank'>
+                            <img src="https://openlayers.org/theme/img/logo-dark.svg" className="logo" alt="openlayers logo" />
+                        </Link>
                     </Col>
                     <Col span={1}>
-                        <img src={GEELogo} className="logo" alt="GEE logo" />
+                        <Link to="https://earthengine.google.com/" target='_blank'>
+                            <img src={GEELogo} className="logo" alt="GEE logo" style={{ width: '2.3vw', marginTop: '0.2vw' }} />
+                        </Link>
                     </Col>
                     <Col span={1}>
-                        <img src={jsLogo} className="logo" alt="JavaScript logo" />
+                        <Link to="https://www.typescriptlang.org/docs/" target='_blank'>
+                            <img src={tsLogo} className="logo" alt="TypeScript logo" />
+                        </Link>
                     </Col>
                     <Col span={1}>
-                        <img src={babelLogo} className="logo" alt="BABEL logo" />
+                        <Link to="https://babeljs.io/repl/" target='_blank'>
+                            <img src={babelLogo} className="logo" alt="BABEL logo" style={{width:'2.3vw', marginLeft:'-0.3vw'}} />
+                        </Link>
                     </Col>
                     <Col span={3}></Col>
 
