@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
-import { OSM, TileWMS } from 'ol/source';
+import { TileWMS } from 'ol/source';
+
 
 import 'ol/ol.css';
 import '../../style/map.css';
