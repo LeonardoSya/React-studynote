@@ -53,7 +53,7 @@ const Services = () => {
         >
             <MyFloatButton zoom={mapZoom} ouZoomIn={handleZoomIn} onZoomOut={handleZoomOut} />
 
-            <Layout style={{ minHeight: '100vh', width: '100.3%' }}>
+            <Layout style={{ minHeight: '100vh', width: '103.2%' }}>
                 {/* Sider */}
                 <MySider collapsed={collapsed} />
 
