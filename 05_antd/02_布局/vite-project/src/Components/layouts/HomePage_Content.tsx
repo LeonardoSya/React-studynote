@@ -1,3 +1,4 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Col, Layout, Row, Flex, Typography, Image, Divider } from 'antd';
 import { InstagramFilled } from '@ant-design/icons';
@@ -13,7 +14,6 @@ const { Title, Text } = Typography;
 const HomePage_Content = () => {
 
     return (
-        <>
             <Content
                 style={{
                     backgroundImage: " linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)",
@@ -127,9 +127,6 @@ const HomePage_Content = () => {
 
                 </Row>
             </Content>
-
-        </>
-
 
 
     );
