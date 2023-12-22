@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Route, Link, Routes, NavLink, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Routes, Navigate, useNavigate } from 'react-router-dom';
 import { FloatButton, Col, Row, ColorPicker, Divider, ConfigProvider, App, Space, Select, Flex, Button, Layout, Menu, theme, Typography, Dropdown, Tooltip, Switch } from 'antd';
 import { AreaChartOutlined, BarChartOutlined, EditFilled, DotChartOutlined, LineChartOutlined, RadarChartOutlined, SlidersOutlined, FundOutlined, ZoomInOutlined, ZoomOutOutlined, SyncOutlined, MenuFoldOutlined, MenuUnfoldOutlined, DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined, GithubOutlined, WechatFilled, CodeFilled, FileFilled } from '@ant-design/icons';
 
-import { Introduction, Overview, Page1, QuarterlyChart, Page3, Page4, Page5 } from '../Components/Routers/services-routers';
+import { Introduction, Overview, Xylophilus,RemoteSensingImagery, QuarterlyChart, Page3, Page4, Page5 } from '../Components/Routers/services-routers';
 import { useSafeState } from '../Components/hooks/hooks';
+
+import '../style/search-input.css'; 
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
@@ -41,7 +43,7 @@ const Services = () => {
                 }
             }}
         >
-            <MyFloatButton />
+            {/* <MyFloatButton /> */}
 
             <Layout style={{ minHeight: '100vh', width: '103.2%' }}>
                 {/* Sider */}
@@ -75,9 +77,9 @@ function getItem(label, key, icon, path) {
 
 const items = [
     getItem('Overview', '1', <PieChartOutlined style={{ fontSize: 18 }} />, "/services/overview"),
-    getItem('Page 1', '2', <AreaChartOutlined style={{ fontSize: 20 }} />, "/services/page1"),
+    getItem('RS Imagery', '2', <AreaChartOutlined style={{ fontSize: 20 }} />, "/services/remotesensingimagery"),
     getItem('NDVI&Tempe', '3', <BarChartOutlined style={{ fontSize: 20 }} />, "/services/quarterlychart"),
-    getItem('Page 3', '4', <DotChartOutlined style={{ fontSize: 20 }} />, "/services/page3"),
+    getItem('Xylophilus', '4', <DotChartOutlined style={{ fontSize: 20 }} />, "/services/xylophilus"),
     getItem('Page 4', '5', <LineChartOutlined style={{ fontSize: 20 }} />, "/services/page4"),
     getItem('Page 5', '6', <RadarChartOutlined style={{ fontSize: 20 }} />, "/services/page5"),
     getItem('Introduction', '7', <SlidersOutlined style={{ fontSize: 20 }} />, "/services/introduction"),
@@ -180,7 +182,6 @@ const MySearchModule = ({ collapsed, toggleCollapsed }) => {
 
     const handleSelectChange = (value, option) => {
         console.log('yes');
-
         navigate(option.link);
     }
 
@@ -193,7 +194,7 @@ const MySearchModule = ({ collapsed, toggleCollapsed }) => {
                 style={{ fontSize: '16px', width: 64, height: 64, marginTop: '0' }}
             />
 
-            <Select
+            {/* <Select
                 showSearch
                 style={{
                     width: 200,
@@ -211,24 +212,31 @@ const MySearchModule = ({ collapsed, toggleCollapsed }) => {
                     link: option.path,
                 }))}
                 onSelect={handleSelectChange}  // ?? 切换路由失败了，再研究一下
-            />
+            /> */}
+            <div className="search-input-container">
+                <input className="search-input" name="text" type="text" />
+                    <label className="search-label" htmlFor="input">Enter Your Query</label>
+                    <div className="search-topline"></div>
+                    <div className="search-underline"></div>
+            </div>
+
         </Flex>
     );
 };
 
-const MyFloatButton = () => {  // ?? 通过 Button setZoom 失败了，再研究一下
-    return (
-        <FloatButton.Group
-            shape='circle'
-            style={{ right: 24 }}
-        >
-            <FloatButton icon={<EditFilled />} />
-            <FloatButton />
-            <FloatButton icon={<SyncOutlined />} onClick={() => window.location.reload()} />
-            <FloatButton.BackTop visibilityHeight={70} />
-        </FloatButton.Group>
-    );
-}
+// const MyFloatButton = () => {  // ?? 通过 Button setZoom 失败了，再研究一下
+//     return (
+//         <FloatButton.Group
+//             shape='circle'
+//             style={{ right: 24 }}
+//         >
+//             <FloatButton icon={<EditFilled />} />
+//             <FloatButton />
+//             <FloatButton icon={<SyncOutlined />} onClick={() => window.location.reload()} />
+//             <FloatButton.BackTop visibilityHeight={70} />
+//         </FloatButton.Group>
+//     );
+// }
 
 const MyMap = () => (
     <Content>
@@ -237,13 +245,13 @@ const MyMap = () => (
         {/* Route 接受 path(页面URL应导航到的路径，类似NavLink的to), element(页面导航到该路由时加载的元素) */}
         <Routes>
             <Route path='/overview' element={<Overview />} />
-            <Route path='/page1' element={<Page1 />} />
+            <Route path='/remotesensingimagery' element={<RemoteSensingImagery />} />
             <Route path='/quarterlychart' element={<QuarterlyChart />} />
-            <Route path='/page3' element={<Page3 />} />
+            <Route path='/xylophilus' element={<Xylophilus />} />
             <Route path='/page4' element={<Page4 />} />
             <Route path='/page5' element={<Page5 />} />
             <Route path='/introduction' element={<Introduction />} />
-            <Route path='*' element={<Navigate to="/services/overview" />} />
+            <Route path='/' element={<Navigate replace to="/overview" />} />
         </Routes>
     </Content>
 );
