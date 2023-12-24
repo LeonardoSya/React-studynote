@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
-import { BrowserRouter, Route, Link, Router, Routes, NavLink, Navigate, useNavigate } from 'react-router-dom';
-
-import MyHomePage from './Pages/MyHomePage.tsx';
-import Services from './Pages/Services.tsx';
-import './style/App.css'
-import './style/index.css'
-
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import Homepage from './pages/home/homepage.tsx';
+import Services from './pages/services/services.tsx';
+import Spotlight from './pages/services/Christmas/index.tsx';
+import './assets/styles/App.css'
+import './assets/styles/index.css'
 
 const App = () => {
   return (
-    <Routes>
-      <Route path='/' element={<MyHomePage />} />
-      <Route path='/services/*' element={<Services />} />
-    </Routes>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Homepage />} />
+        <Route path='/services/*' element={<Services />} />
+        <Route path='/spotlight' element={<Spotlight />} />
+      </Routes>
+    </BrowserRouter>
+
   )
 }
 export default App;
