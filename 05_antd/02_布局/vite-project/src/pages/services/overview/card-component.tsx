@@ -1,17 +1,16 @@
 import React from 'react';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
-import { Avatar, Card } from 'antd';
+import { Card } from 'antd';
 import './index.css';
 
 interface LittleCardProps {
     title: string;
     description: string;
     coverImage: string;
-    avatarImage: string;
     cardStyle?: React.CSSProperties;  // 卡片样式(可选)
 }
 
-const CardComponent: React.FC<LittleCardProps> = ({ title, description, coverImage, avatarImage }) => {
+const CardComponent: React.FC<LittleCardProps> = ({ title, description, coverImage }) => {
 
     return (
         <Card
@@ -39,7 +38,6 @@ const CardComponent: React.FC<LittleCardProps> = ({ title, description, coverIma
                 }}
                 title={title}
                 description={description}
-                avatar={<Avatar src={avatarImage} />}
             />
         </Card>
     );

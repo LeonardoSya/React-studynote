@@ -5,7 +5,7 @@ import TileLayer from 'ol/layer/Tile';
 import { XYZ, TileWMS } from 'ol/source';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { useSafeState, useCreation } from '../../../hooks/hooks';
-import { Flex, Row, Col, message, Tour } from 'antd';
+import { Flex, Row, Col, message } from 'antd';
 import Floatbutton from '../../../components/floatbutton';
 import '../services.css';
 import '../../../assets/styles/map.css'
@@ -25,11 +25,11 @@ const RSImagery: React.FC = React.memo(() => {
     const mapRef = useRef<HTMLDivElement>(null);
     const [isLoading, setIsLoading] = useSafeState<boolean>(false);
     const [messageApi, contextHolder] = message.useMessage();
-    const { refs, open, setOpen } = useContext(GuideContext);
+    const { refs } = useContext(GuideContext);
     let timeoutId: number | null | undefined = null;
 
     const info = () => {
-        messageApi.info(`You have switched to remote sensing image of ${item === mapInfo[0] ? 'winter' : 'summer'}.`);
+        messageApi.info(`您已切换至${item === mapInfo[0] ? '2022' : '2023'}年的遥感影像`);
     };
 
     const toggleItem = useCallback(() => {
@@ -57,25 +57,12 @@ const RSImagery: React.FC = React.memo(() => {
             crossOrigin: 'anonymous',
         });
 
-        const wmsSource = new TileWMS({
-            url: 'https://electric-duly-peacock.ngrok-free.app/geoserver/vector/wms',
-            params: {
-                'LAYERS': 'vector:traffic',
-                'TILED': true,
-                'FORMAT': 'image/png',
-            },
-            projection: 'EPSG:4326',
-            serverType: 'geoserver',
-            attributions: '交通网',
-            crossOrigin: 'anonymous',
-        })
-
-        wmsSource.on('tileloadstart', () => {
+        xyzSource.on('tileloadstart', () => {
             setIsLoading(true);
             if (timeoutId !== null) {
                 clearTimeout(timeoutId);
             }
-            timeoutId = setTimeout(() => {
+            timeoutId = window.setTimeout(() => {
                 setIsLoading(false);
                 timeoutId = null;
             }, 2000);
@@ -89,9 +76,6 @@ const RSImagery: React.FC = React.memo(() => {
                     extent: extent,
                     source: xyzSource,
                 }),
-                new TileLayer({
-                    source: wmsSource,
-                })
             ],
             view: new View({
                 center: transformedCenter,
@@ -118,8 +102,8 @@ const RSImagery: React.FC = React.memo(() => {
 
                 <Row justify="center" align="top">
                     <Col span={7}>
-                        <span style={{ fontFamily: 'Silkscreen', fontSize: '1.3vw' }}>
-                            🚀change RS Imagery!
+                        <span style={{fontSize: '1.3vw' }}>
+                            🚀 区域变化遥感影像
                         </span>
                     </Col>
 
@@ -133,7 +117,7 @@ const RSImagery: React.FC = React.memo(() => {
                     <Col span={4}></Col>
                 </Row>
                 <div ref={mapRef} className='map-container' style={{ background: "#000000cc" }} ></div>
-                <Floatbutton toggleFullScreen={toggleFullScreen} infoDescription={'this is rs-imagery page'} />
+                <Floatbutton toggleFullScreen={toggleFullScreen} titleDescription={'阳山县2m遥感影像图'} infoDescription={'地区：清远市阳山县 分辨率：2m 时间：2022年 & 2023年 影像来源：国产公益卫星 — 资源系列、 高分系列 '} />
             </Flex>
         </GuideProvider>
     );

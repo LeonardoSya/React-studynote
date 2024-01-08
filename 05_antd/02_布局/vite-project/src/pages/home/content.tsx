@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Col, Layout, Row, Flex, Typography, Image, Divider } from 'antd';
+import { Card, Col, Row, Flex, Typography, Divider } from 'antd';
 import { } from '@ant-design/icons';
 import { Content } from 'antd/es/layout/layout';
-import { homepageIcon, reactLogo, viteLogo, antdLogo, babelLogo, tsLogo, GEELogo, } from '../../assets/icons/icons';
+// @ts-ignore
+import { homepageIcon, reactLogo, viteLogo, antdLogo, babelLogo, tsLogo, GEELogo, Ol } from '../../assets/icons/icons.js';
 import './index.css';
 
 const { Title } = Typography;
 
-const HomepageContent = () => (
+const HomepageContent: React.FC = () => (
     <Content
         style={{
             backgroundImage: " linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)",
@@ -23,7 +24,8 @@ const HomepageContent = () => (
                 style={{
                     background: "inherit",
                     border: "none",
-                    width: "500vw"
+                    width: "500vw",
+                    marginBottom:'3rem'
                 }}>
                 <Flex
                     vertical
@@ -31,28 +33,28 @@ const HomepageContent = () => (
                     justify='center'
                     align='flex-start'
                 >
-                    <Title level={1} style={{ color: "#fff", fontSize: "3.5vw", fontFamily: "Poppins" }} >
+                    <Title level={1} style={{ color: "#fff", fontSize: "3.5vw" }} >
                         <span>Kickstart your</span>
                         <br />
                         exploration with
                         <br />
-                        <span style={{ color: "#a78bfa", fontFamily: "Shadows Into Light", fontSize: "6vw" }}> Ecolens</span>
+                        <span style={{ color: "#a78bfa", fontSize: "6vw" }}> Ecolens</span>
                     </Title>
-                    <Title level={4} style={{ color: "#fff", fontSize: '1.8vw', fontFamily: 'Poppins' }}>
-                        🌍 Comprehensive Mapping <br />
-                        📡 Remote Sensing Integration <br />
-                        🌱 Ecosystem Monitoring <br />
-                        🔍 User-Friendly Interface <br />
-                        🚀 Kickstart Ecological Journey <br />
+                    <Title level={4} style={{ color: "#fff", fontSize: '1.8vw', fontWeight: 500, letterSpacing:'0.2rem' }}>
+                        🌍 下一代地图平台 <br />
+                        📡 即时的遥感影像 <br />
+                        🌱 全面的生态监测 <br />
+                        🔍 高分辨率的地图 <br />
+                        🚀 开启你的生态之旅！  <br />
                         {/* 🚀 Kickstart Your Ecological Journey <br /> */}
                     </Title>
 
-                    <Link to="/services/overview">
+                    <Link to="/services/swipe">
                         <button className="learn-more">
                             <span className="circle" aria-hidden="true">
                                 <span className="icon arrow"></span>
                             </span>
-                            <span className="button-text">Start NOW !</span>
+                            <span className="button-text">立刻体验！</span>
                         </button>
                     </Link>
 
@@ -79,13 +81,13 @@ const HomepageContent = () => (
 
         <Divider
             style={{
-                marginTop: "8vh",
+                margin: "3rem 0",
                 color: "#fff",
-                fontFamily: "Shadows Into Light",
-                fontSize: '3vw',
+                fontSize: '1.6rem',
+                letterSpacing:'0.3rem'
             }}
         >
-            Build with
+            产品技术栈
         </Divider>
 
         <Row justify="space-around">
@@ -107,7 +109,7 @@ const HomepageContent = () => (
             </Col>
             <Col span={1}>
                 <Link to="https://openlayers.org/" target='_blank'>
-                    <img src="https://openlayers.org/theme/img/logo-dark.svg" className="logo" alt="openlayers logo" />
+                    <img src={Ol} className="logo" alt="openlayers logo" />
                 </Link>
             </Col>
             <Col span={1}>
