@@ -1,57 +1,33 @@
-import { BrowserRouter as Router, Route, Link, Routes, Navigate, useNavigate, To } from 'react-router-dom';
-import { Col, Row, ColorPicker, ConfigProvider, Flex, Button, Layout, Menu, theme, Typography, Tooltip } from 'antd';
-import { AreaChartOutlined, BarChartOutlined, DotChartOutlined, LineChartOutlined, RadarChartOutlined, SlidersOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined, GithubOutlined, WechatFilled, CodeFilled, FileFilled } from '@ant-design/icons';
-import { Introduction, Overview, Xylophilus, QuarterlyChart, Page3, Boundary, Page5, RSImagery } from './services-routers';
+import React, { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
+import { Route, Link, Routes, Navigate, To } from 'react-router-dom';
+import { Col, Row, ColorPicker, ConfigProvider, Flex, Button, Layout, Menu, Typography, Tooltip } from 'antd';
+import { AreaChartOutlined, BarChartOutlined, DotChartOutlined, LineChartOutlined, SlidersOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PieChartOutlined, GithubOutlined, WechatFilled, CodeFilled, FileFilled } from '@ant-design/icons';
+import { Introduction, Xylophilus, QuarterlyChart, Swipe, RSImagery } from './services-routers';
 import { useSafeState } from '../../hooks/hooks';
-import './search-input.css';
-import { SetStateAction } from 'react';
 import { JSX } from 'react/jsx-runtime';
-import { Key, ReactElement, JSXElementConstructor, ReactNode, ReactPortal } from 'react';
+import './search-input.css';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Title } = Typography;
 
-const Services = () => {
+const Services: React.FC = () => {
     const [primary, setPrimary] = useSafeState('#262626');
-    // const { collapsed, setCollapsed, forceCollapsed, toggleCollapsed } = useContext(ChartContext);
     const [collapsed, setCollapsed] = useSafeState(false);
-    // const { token: { colorBgContainer }, } = theme.useToken();
-
-    const togglePrimaryColor = (color: { toHexString: () => SetStateAction<string>; }) => {
-        setPrimary(color.toHexString())
+    const togglePrimaryColor = (color: string) => {
+        setPrimary(color)
     }
-
     const toggleCollapsed = () => {
         collapsed ? setCollapsed(false) : setCollapsed(true);
     }
 
-
     return (
-        <ConfigProvider
-            theme={{
-                token: {
-                    // Seed Token 影响范围大
-                    colorPrimary: primary,
-                    // // 派生变量,影响范围小
-                    // // colorBgContainer:''
-                }
-            }}
-        >
+        <ConfigProvider theme={{ token: { colorPrimary: primary, } }}>
             <Layout>
-                {/* Sider */}
                 <MySider collapsed={collapsed} />
-
                 <Layout>
-                    {/* Header */}
                     <MyHeader primary={primary} togglePrimaryColor={togglePrimaryColor} />
-
-                    {/* Search module */}
                     <MySearchModule collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
-
-                    {/* Router */}
                     <MyMap style={{ width: '100vw' }} />
-
-                    {/* Footer */}
                     <Footer style={{ textAlign: 'center', background: 'rgba(0,0,0,.8)', color: '#bfbfbf' }}>
                         Ecolens System ©2023 Created by Zhangyiyang
                     </Footer>
@@ -69,20 +45,18 @@ function getItem(label: string, key: string, icon: JSX.Element, path: string) {
 }
 
 const items = [
-    getItem('Overview', '1', <PieChartOutlined style={{ fontSize: 18 }} />, "/services/overview"),
-    getItem('RS Imagery', '2', <AreaChartOutlined style={{ fontSize: 20 }} />, "/services/rsimagery"),
-    getItem('NDVI&Tempe', '3', <BarChartOutlined style={{ fontSize: 20 }} />, "/services/ndvitemp"),
-    getItem('Xylophilus', '4', <DotChartOutlined style={{ fontSize: 20 }} />, "/services/xylophilus"),
-    getItem('Boundary map', '5', <LineChartOutlined style={{ fontSize: 20 }} />, "/services/boundary"),
-    getItem('Page 5', '6', <RadarChartOutlined style={{ fontSize: 20 }} />, "/services/page5"),
-    getItem('Introduction', '7', <SlidersOutlined style={{ fontSize: 20 }} />, "/services/introduction"),
-
+    getItem('区域概况', '1', <PieChartOutlined style={{ fontSize: 20 }} />, "/services/swipe"),
+    getItem('遥感影像', '2', <AreaChartOutlined style={{ fontSize: 20 }} />, "/services/rsimagery"),
+    getItem('虫害监测', '3', <DotChartOutlined style={{ fontSize: 20 }} />, "/services/xylophilus"),
+    getItem('生态状况', '4', <BarChartOutlined style={{ fontSize: 20 }} />, "/services/ndvitemp"),
+    getItem('产品文档', '5', <SlidersOutlined style={{ fontSize: 20 }} />, "/services/introduction"),
+    // getItem('Page 7', '7', <RadarChartOutlined style={{ fontSize: 20 }} />, "/services/page5"),
 ];
 
 const MySider = ({ collapsed }: { collapsed: boolean }) => {
     const renderMenuItems = (menuItems: any[]) => {
         return menuItems.map((item: { key: Key | null | undefined; icon: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; path: To; label: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | null | undefined; }) => (
-            <Menu.Item key={item.key} icon={item.icon} style={{ fontSize: "1.1rem" }}>
+            <Menu.Item key={item.key} icon={item.icon} style={{ borderRadius:'0.8rem',fontSize: "1.2rem",margin:"0.2rem 0.5rem 0.1rem 0.25rem",height:'4rem',lineHeight:'4rem' }}>
                 <Link to={item.path}>{item.label}</Link>
             </Menu.Item>
         ));
@@ -98,16 +72,15 @@ const MySider = ({ collapsed }: { collapsed: boolean }) => {
     );
 };
 
-
-
 const MyHeader = ({ primary, togglePrimaryColor }: { primary: string, togglePrimaryColor: (color: string) => void }) => (
     <Header style={{ width: 'auto', height: '6vh', padding: 0, backgroundImage: " linear-gradient(-20deg, #2b5876 0%, #4e4376 100%)", }}>
         <Row>
             <Col span={12}>
                 <Flex justify="flex-start" align="flex-start" gap="small">
+                    {/* @ts-ignore */}
                     <ColorPicker value={primary} onChangeComplete={togglePrimaryColor} style={{ margin: '1vh', border: 'none', background: "inherit", }} />
-                    <Title style={{ fontSize: "1.5vw", fontFamily: "Silkscreen", marginTop: '1vh', color: '#fff' }}>
-                        <Link to="/" style={{ color: 'inherit' }}>Ecolens System</Link>
+                    <Title style={{ fontSize: "1.5vw", marginTop: '1vh', color: '#fff' }}>
+                        <Link to="/" style={{ color: 'inherit' }}>Ecolens 生态监测系统</Link>
                     </Title>
                 </Flex>
             </Col>
@@ -132,47 +105,7 @@ const MyHeader = ({ primary, togglePrimaryColor }: { primary: string, togglePrim
     </Header>
 );
 
-
-// const selectOptions = [
-//     {
-//         value: '1',
-//         label: 'Services',
-//         path: "/",
-//         page: 'Services',
-//     },
-//     {
-//         value: '2',
-//         label: 'Page 1',
-//         path: '/page1',
-//         page: 'Page1',
-//     },
-//     {
-//         value: '3',
-//         label: 'Page 2',
-//         path: '/page2',
-//         page: 'Page2',
-//     },
-//     {
-//         value: '4',
-//         label: 'Page 3',
-//         path: '/page3',
-//         page: 'Page3',
-//     },
-//     {
-//         value: '5',
-//         label: 'Page 4',
-//         path: '/page4',
-//         page: 'Page4',
-//     },
-//     {
-//         value: '6',
-//         label: 'Page 5',
-//         path: '/page5',
-//         page: 'Page5',
-//     },
-// ]
-
-const MySearchModule = ({ collapsed, toggleCollapsed }) => {
+const MySearchModule = ({ collapsed, toggleCollapsed }: { collapsed: boolean, toggleCollapsed: () => void }) => {
 
     return (
         <Flex justify='flex-start' align='center' gap="large" style={{ background: '#f5f5f5', height: '10vh' }}>
@@ -184,7 +117,7 @@ const MySearchModule = ({ collapsed, toggleCollapsed }) => {
             />
 
             <div className="search-input-container">
-                <input className="search-input" name="text" type="text" />
+                <input className="search-input" name="text" type="text" placeholder='虫害监测' />
                 <label className="search-label" htmlFor="input">Enter Your Query</label>
                 <div className="search-topline"></div>
                 <div className="search-underline"></div>
@@ -194,24 +127,24 @@ const MySearchModule = ({ collapsed, toggleCollapsed }) => {
     );
 };
 
-export const MyMap = () => {
 
-    return (
-        <Content>
-            {/* Route用于将应用的位置映射到不同的React组件 */}
-            {/* Route 接受 path(页面URL应导航到的路径，类似NavLink的to), element(页面导航到该路由时加载的元素) */}
-            <Routes>
-                <Route path='/overview' element={<Overview />} />
-                <Route path='/rsimagery' element={<RSImagery />} />
-                <Route path='/ndvitemp' element={<QuarterlyChart />} />
-                <Route path='/xylophilus' element={<Xylophilus />} />
-                <Route path='/boundary' element={<Boundary />} />
-                <Route path='/page5' element={<Page5 />} />
-                <Route path='/introduction' element={<Introduction />} />
-                <Route path='/' element={<Navigate replace to="/overview" />} />
-            </Routes>
-        </Content>
-    );
-};
+interface MyMapProps {
+    style?: React.CSSProperties;
+}
+
+export const MyMap: React.FC<MyMapProps> = () => (
+    <Content>
+        {/* Route用于将应用的位置映射到不同的React组件 */}
+        {/* Route 接受 path(页面URL应导航到的路径，类似NavLink的to), element(页面导航到该路由时加载的元素) */}
+        <Routes>
+            <Route path='/swipe' element={<Swipe />} />
+            <Route path='/rsimagery' element={<RSImagery />} />
+            <Route path='/xylophilus' element={<Xylophilus />} />
+            <Route path='/ndvitemp' element={<QuarterlyChart />} />
+            <Route path='/introduction' element={<Introduction />} />
+            <Route path='/' element={<Navigate replace to="/introduction" />} />
+        </Routes>
+    </Content>
+);
 
 export default Services;

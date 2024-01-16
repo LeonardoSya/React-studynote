@@ -5,8 +5,7 @@ import HomepageHeader from './header';
 import HomepageContent from './content';
 import HomepageFooter from './footer';
 
-
-const Homepage = () => (
+const Homepage:React.FC = () => (
     <Layout>
         <HomepageHeader />
         <HomepageContent />

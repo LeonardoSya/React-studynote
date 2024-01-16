@@ -22,10 +22,11 @@ const Area: React.FC = () => {
             try {
                 const response = await fetch('https://assets.antv.antgroup.com/g2/unemployment-by-industry.json');
                 // 告诉TypeScript这个response符合Data接口
+                // @ts-ignore
                 const data = (await response.json()) as Data[];
 
                 // 读取data的值以消除ts warning
-                console.log(data);
+                // console.log(data);
 
                 const chartInstance = new Chart({
                     container: chartContainerRef.current!,
@@ -62,9 +63,6 @@ const Area: React.FC = () => {
 
     return <div id='area-container' ref={chartContainerRef} className="container" />;
 };
-
-
-
 
 
 export function LoadingSpinner() {

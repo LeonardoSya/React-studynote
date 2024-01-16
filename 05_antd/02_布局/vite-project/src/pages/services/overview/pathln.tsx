@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import { Avatar, Card } from 'antd';
+import { Card } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Chart } from '@antv/g2';
-import { useDebounce, useSafeState } from '../../../hooks/hooks';
 import { ChartContext } from '../../../models/chart-context';
 import './index.css';
 
 interface PathlnProps {
     title: string;
     description: string;
-    avatarImage: string;
     cardStyle?: React.CSSProperties;
 }
-const Pathln: React.FC<PathlnProps> = ({ title, description, avatarImage }) => {
+const Pathln: React.FC<PathlnProps> = ({ title, description }) => {
     const chartRef = useRef(null);
     const cardRef = useRef(null);
     const { collapsed } = useContext(ChartContext);
@@ -67,7 +65,6 @@ const Pathln: React.FC<PathlnProps> = ({ title, description, avatarImage }) => {
                 className='text'
                 title={title}
                 description={description}
-                avatar={<Avatar src={avatarImage} />}
             />
         </Card>
     )

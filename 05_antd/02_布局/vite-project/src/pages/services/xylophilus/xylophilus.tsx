@@ -14,10 +14,10 @@ import './index.css';
 import '../../../assets/styles/map.css'
 
 const mapInfo = [
-    { id: '02067963-3cde-46b5-ab9d-b64247a5fbbf', center: [112.61178989861932, 24.49146364092972], zoom: 18.5, label: "First", index: 0 },
-    { id: 'e8826544-2b17-478c-b7bc-9523a8489777', center: [112.654095, 24.462341], zoom: 17.5, label: "Second", index: 1 },
-    { id: '66ba550a-a9f6-473e-af66-d22d8d1d1a9b', center: [112.661316, 24.474848], zoom: 17.9, label: "Third", index: 2 },
-    { id: 'a91ffe76-5903-4911-9cc9-18b3fb4651a6', center: [112.619898, 24.432980], zoom: 16.9, label: "Forth", index: 3 },
+    { id: '02067963-3cde-46b5-ab9d-b64247a5fbbf', center: [112.61178989861932, 24.49146364092972], zoom: 18.5, label: "测区1", index: 0 },
+    { id: 'e8826544-2b17-478c-b7bc-9523a8489777', center: [112.654095, 24.462341], zoom: 17.5, label: "测区2", index: 1 },
+    { id: '66ba550a-a9f6-473e-af66-d22d8d1d1a9b', center: [112.661316, 24.474848], zoom: 17.9, label: "测区3", index: 2 },
+    { id: 'a91ffe76-5903-4911-9cc9-18b3fb4651a6', center: [112.619898, 24.432980], zoom: 16.9, label: "测区4", index: 3 },
 ];
 
 interface MapKitState {
@@ -36,10 +36,9 @@ const Xylophilus: React.FC = React.memo(() => {
     const mapRef = useRef<HTMLDivElement>(null);
     const [item, setItem] = useSafeState(mapInfo[0]);
     const [isLoading, setIsLoading] = useSafeState<boolean>(false);
-    let timeoutId: number | null | undefined = null;
     const [messageApi, contextHolder] = message.useMessage();
+    let timeoutId: number | null | undefined = null;
 
-    // 全屏切换
     const toggleFullScreen = useCallback(() => {
         const mapElement = mapRef?.current;
         if (!document.fullscreenElement && mapElement) {
@@ -51,7 +50,7 @@ const Xylophilus: React.FC = React.memo(() => {
 
     const toggleItem = useCallback((index: number) => {
         setItem(mapInfo[index]);
-        infoMessage(mapInfo[index]);  // 传递最新的 item
+        infoMessage(mapInfo[index]);
     }, []);
 
     interface seletedItemProps {
@@ -63,7 +62,7 @@ const Xylophilus: React.FC = React.memo(() => {
     }
 
     const infoMessage = (selectedItem: seletedItemProps) => {
-        messageApi.info(`You have switched to the ${selectedItem.label} page.`);
+        messageApi.info(`您已切换至${selectedItem.label}界面.`);
     };
 
     const transformedCenter = useCreation(() => fromLonLat(item.center), [item.center])
@@ -83,7 +82,7 @@ const Xylophilus: React.FC = React.memo(() => {
             if (timeoutId !== null) {
                 clearTimeout(timeoutId);
             }
-            timeoutId = setTimeout(() => {
+            timeoutId = window.setTimeout(() => {
                 setIsLoading(false);
                 timeoutId = null;
             }, 3000);
@@ -98,7 +97,6 @@ const Xylophilus: React.FC = React.memo(() => {
                 }),
             ],
             view: new View({
-                // extent:
                 center: transformedCenter,
                 zoom: item.zoom,
                 minZoom: item.zoom - 1.5,
@@ -122,8 +120,8 @@ const Xylophilus: React.FC = React.memo(() => {
             <Flex gap="small" vertical>
                 <Row justify="center" align="top">
                     <Col span={8}>
-                        <span style={{ fontFamily: 'Silkscreen', fontSize: '1.3vw' }}>
-                            🔍change xylophilus Imagery!
+                        <span style={{ fontSize: '1.3vw' }}>
+                            🔍松材线虫害受灾区域监测图
                         </span>
                     </Col>
                     <Col span={8}>
@@ -147,7 +145,7 @@ const Xylophilus: React.FC = React.memo(() => {
                     </Col>
                     <Col span={2}></Col>
                 </Row>
-                <Floatbutton toggleFullScreen={toggleFullScreen} infoDescription={'this is 线虫 page'} />
+                <Floatbutton toggleFullScreen={toggleFullScreen} titleDescription='松材线虫受灾区无人机监测影像' infoDescription={'空间引用标识符（SRID/EPSG）：4326 图像宽度：256 图像高度：256 瓦片数量：128 缩放级别：14-21 第一张 (2023年11月18日) 图片数量：36张 分辨率：0.058米 第二张 (2023年11月18日) 图片数量：197张 分辨率：0.089米 第三张 (2023年11月19日) 图片数量：120张 分辨率：0.113米 第四张 (2020年11月20日) 图片数量：119张 分辨率：0.126米'} />
                 <div ref={mapRef} className='map-container' style={{ background: '#000000cc' }} ></div>
             </Flex>
 
