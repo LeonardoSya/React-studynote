@@ -2,21 +2,21 @@ import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
-import { XYZ, TileWMS } from 'ol/source';
+import { XYZ } from 'ol/source';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { useSafeState, useCreation } from '../../../hooks/hooks';
 import { Flex, Row, Col, message } from 'antd';
 import Floatbutton from '../../../components/floatbutton';
-import '../services.css';
-import '../../../assets/styles/map.css'
-import 'ol/ol.css';
 import Loader from '../../../components/loader';
 import RoamingGuide from '../../../components/tour';
 import { GuideContext, GuideProvider } from '../../../models/tour-context';
+import '../services.css';
+import '../../../assets/styles/map.css'
+import 'ol/ol.css';
 
 const mapInfo = [
-    { id: '61f9b270-a42c-4d9e-a9dc-ac3af586b313', center: [112.678303857182, 24.38823323344173], zoom: 12.5 },
-    { id: '2ce48a09-3160-46ef-9349-76b5bde1caae', center: [112.678303857182, 24.341823323344173], zoom: 12.5 },
+    { id: 'id', center: [112.678303857182, 24.38823323344173], zoom: 12.5 },
+    { id: 'id', center: [112.678303857182, 24.341823323344173], zoom: 12.5 },
 ];
 const extent = [12405068.682639811, 2653037.9382806667, 12706225.178468876, 2872899.1673065587];
 
@@ -27,7 +27,6 @@ const RSImagery: React.FC = React.memo(() => {
     const [messageApi, contextHolder] = message.useMessage();
     const { refs } = useContext(GuideContext);
     let timeoutId: number | null | undefined = null;
-
     const info = () => {
         messageApi.info(`您已切换至${item === mapInfo[0] ? '2022' : '2023'}年的遥感影像`);
     };
@@ -48,7 +47,7 @@ const RSImagery: React.FC = React.memo(() => {
     const transformedCenter = useCreation(() => fromLonLat(item.center), []);
 
     useEffect(() => {
-        const url = `http://zh01.stgz.org.cn/mapzonegis/yangshan-temp/${item.id}/{z}/{x}/{y}/tile.png?tk=d26ca22d-a029-419e-9bdf-c2e7d3b52aa2`;
+        const url = `url`;
 
         const xyzSource = new XYZ({
             url: url,
@@ -102,7 +101,7 @@ const RSImagery: React.FC = React.memo(() => {
 
                 <Row justify="center" align="top">
                     <Col span={7}>
-                        <span style={{fontSize: '1.3vw' }}>
+                        <span style={{ fontSize: '1.3vw' }}>
                             🚀 区域变化遥感影像
                         </span>
                     </Col>
