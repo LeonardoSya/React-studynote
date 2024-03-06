@@ -5,10 +5,10 @@ interface MonthCalendarProps extends CalendarProps {
 
 }
 
-function getAllDays(date: Dayjs) {
+const getAllDays = (date: Dayjs) => {
+
     const startDate = date.startOf('month');  // 当前月份的第一天
     const day = startDate.day();  // 当前月份的第一天所在星期几的索引 (5)
-
     const daysInfo: Array<{ date: Dayjs, currentMonth: boolean }> = new Array(6 * 7);
 
     for (let i = 0; i < day; i++) {
@@ -31,20 +31,37 @@ function getAllDays(date: Dayjs) {
     return daysInfo;
 }
 
+const renderDays = (
+    days: Array<{ date: Dayjs, currentMonth: boolean }>,
+    dateRender: MonthCalendarProps['dateRender'],
+    dateInnerContent: MonthCalendarProps['dateInnerContent'],
+) => {
+    const rows: Array<number> = [];
+
+    for (let i = 0; i < 6; i++) {
+        const row = [];
+        for (let j = 0; j < 7; j++) {
+            const item = days[i * 7 + j];
+            row[j] =
+                <div
+                    key={item.date.format('YYYY-MM-DD')}
+                    className={"calendar-month-body-cell " + (item.currentMonth ? "calendar-month-body-cell-current" : "")}
+                >
+                    {dateRender? dateRender(item.date) : item.date.date()}
+                </div>
+        }
+        rows.push(row);
+    }
+    return rows.map(row => <div className='calendar-month-body-row'>{row}</div>)
+}
+ 
+
 const MonthCalendar = (props: MonthCalendarProps) => {
 
-    function renderDays(days: Array<{ date: Dayjs, currentMonth: boolean }>) {
-        const rows: Array<number> = [];
-        for (let i = 0; i < 6; i++) {
-            const row = [];
-            for (let j = 0; j < 7; j++) {
-                const item = days[i * 7 + j];
-                row[j] = <div key={item.date.format('YYYY-MM-DD')} className="calendar-month-body-cell">{item.date.date()}</div>
-            }
-            row.push(row);
-        }
-        return rows.map(row => <div className='calendar-month-body-row'>{row}</div>)
-    }
+    const {
+        dateRender,
+        dateInnerContent,
+    } = props;
 
     const weekList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const allDays = getAllDays(props.value);
@@ -59,7 +76,7 @@ const MonthCalendar = (props: MonthCalendarProps) => {
                 ))}
             </div>
             <div className="calendar-month-body">
-                {renderDays(allDays)}
+                {renderDays(allDays, dateRender, dateInnerContent)}
             </div>
         </div>
     );

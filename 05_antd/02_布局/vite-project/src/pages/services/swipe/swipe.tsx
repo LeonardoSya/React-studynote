@@ -7,7 +7,7 @@ import View from 'ol/View';
 import XYZ from 'ol/source/XYZ';
 import { getRenderPixel } from 'ol/render';
 import { fromLonLat } from 'ol/proj';
-import Overview from '../overview';
+import Overview from './overview';
 import Floatbutton from '../../../components/floatbutton';
 import '../../../assets/styles/map.css';
 import 'ol/ol.css';
